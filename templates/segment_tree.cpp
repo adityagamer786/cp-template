@@ -1,10 +1,11 @@
 struct SegmentTree {
   vector<int> t;
   int n;
+  function<int(int,int)> op;
 
   // this is the main function for merging nodes
   int combine(int a, int b){
-    return a+b;
+    return op(a,b);
   }
 
   SegmentTree(int n){
@@ -12,7 +13,8 @@ struct SegmentTree {
     t.assign(4*n+1, 0);
   }
 
-  SegmentTree(vector<int> a) : SegmentTree(a.size()){
+  SegmentTree(vector<int> a) : SegmentTree(a.size(), function<int(int,int)> op = [] (int x, int y) {return x+y;}){
+    this->op = op;
     build(a, 1, 0, sz(a)-1);
   }
 
@@ -44,7 +46,7 @@ struct SegmentTree {
     return 0; // will never happen
   }
 
-  int sum(int l, int r){
+  int query(int l, int r){
     if(l > r) return 0;
     return sumUtil(1,0,n-1,l,r);
   }

@@ -6,7 +6,7 @@ public:
   int find(int);
   void merge(int,int);
   int size(int x){return siz[find(x)];}
-  bool is_connected(int x, int y){return find(x) == find(y);}
+  bool merged(int x, int y){return find(x) == find(y);}
 };
 
 dsu::dsu(int n) : v(n), siz(n, 1) {
